@@ -17,7 +17,7 @@ Siga estas etapas para instalar e configurar o TaskSystem:
 
 1. Clone o repositório do GitHub para o seu ambiente local:
 
-   git clone https://github.com/seu-usuario/tasksystem.git
+   git clone https://github.com/luisTrivinh0/tasksystem.git
 
 2. Navegue até o diretório do projeto:
 
