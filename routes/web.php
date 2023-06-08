@@ -6,6 +6,10 @@ use App\Http\Controllers\UserController;
 
 Auth::routes();
 
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
@@ -18,9 +22,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-});
-
-Route::middleware(['guest'])->group(function () {
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');

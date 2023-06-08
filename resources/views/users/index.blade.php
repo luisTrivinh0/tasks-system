@@ -3,38 +3,38 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Tarefas</div>
+            <div class="card-header">Usuários</div>
 
             <div class="card-body">
-                <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Adicionar Tarefa</a>
+                <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Adicionar Usuário</a>
 
-                <table class="table mt-5" id="tasks-table">
+                <table class="table mt-5" id="users-table">
                     <thead>
                         <tr>
-                            <th>Título</th>
-                            <th>Descrição</th>
-                            <th data-order="{{ now()->timestamp }}">Criado em</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Criado em</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($tasks as $task)
+                        @forelse ($users as $user)
                             <tr>
-                                <td>{{ $task->title }}</td>
-                                <td>{{ $task->description }}</td>
-                                <td>{{ $task->created_at }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td data-order="{{ now()->timestamp }}">{{ $user->created_at }}</td>
                                 <td>
-                                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-primary">Editar</a>
-                                    <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
+                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-primary">Editar</a>
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir essa tarefa?')">Excluir</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse usuário?')">Excluir</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td>Não há tarefas cadastradas</td>
+                                <td>Não há usuários cadastrados</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -47,7 +47,7 @@
     </div>
     <script>
         $(document).ready(function() {
-            $('#tasks-table').DataTable({
+            $('#users-table').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
                 },

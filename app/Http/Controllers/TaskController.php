@@ -22,7 +22,7 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks.create');
+        return view('tasks.form');
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        return view('tasks.form', compact('task'));
     }
 
     public function update(Request $request, Task $task)

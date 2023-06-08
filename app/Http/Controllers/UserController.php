@@ -16,16 +16,20 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('users.form');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|',
             'password' => 'required|min:6',
         ]);
+
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'Já existe um usuário com esse e-mail.'])->withInput();
+        }
 
         User::create([
             'name' => $request->name,
@@ -35,20 +39,22 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Usuário registrado com sucesso.');
     }
-
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('users.form', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email',
             'password' => 'nullable|min:6',
         ]);
 
+        if (User::whereNot('id', $user->id)->where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'Já existe um usuário com esse e-mail.'])->withInput();
+        }
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->password) {
